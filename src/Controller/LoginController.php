@@ -13,7 +13,7 @@ class LoginController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('login/index.html.twig', [
+        return $this->render('login/add.html.twig', [
             'controller_name' => 'LoginController',
         ]);
     }

@@ -1,0 +1,97 @@
+
+
+
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="col-md-9 col-xl-10">
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="account" role="tabpanel">
+
+                <div class="card">
+                    <div class="card-header">
+
+                        <h5 class="card-title mb-0">Private info</h5>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(produitform,{'attr':{'novalidate' : 'novalidate'}}) }}
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <i class="fa fa-user-md"> </i>
+
+                                    {{ form_label(produitform.nom,"nom : ") }}
+                                    {{ form_widget(produitform.nom)}}
+                                    {{ form_errors(produitform.nom)}}
+
+                                </div>
+                                <div class="mb-3">
+                                    <i class="fa fa-user-md">
+
+                                        {{ form_widget(produitform.prix)}}
+                                        {{ form_errors(produitform.prix)}}
+                                    </i>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <img alt="Charles Hall" src="{{ asset('img/avatars/avatar.jpg') }}" class="rounded-circle img-responsive mt-2" width="128" height="128" />
+                                    <div class="mt-2">
+                                        <i class=" fa fa-picture-o">
+                                            {{ form_label(produitform.image) }}
+                                            {{ form_widget(produitform.image)}}
+                                        </i>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-header">
+
+                        <h5 class="card-title mb-0">Private info</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <i class="fa fa-envelope-o">
+
+
+                                    </i>
+
+                                </div>
+
+                                <div class="mb-3">
+                                    {{ form_label(produitform.description,"Description : ") }}
+                                    {{ form_widget(produitform.description)}}
+                                    {{ form_errors(produitform.description)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    {{ form_widget(produitform.Envoyer)}}
+                    {{ form_widget(produitform.Annuler)}}
+                </div>
+
+                {{ form_end(produitform) }}
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <body>
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+
+                </div>
+            </div>
+        </div>
+        <div id="donutchart" style="width: 90%; height: 500px; margin-left: 60px"></div>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'year');
+                data.addColumn('number', 'quantité');
+                data.addRows([
+                    {%for op in stat %}
+                    ['{{ op.prix }}', {{ op.nbp }}],
+                    {% endfor %}
+                ]);
+
+                var options = {
+                    title: 'Nombre de produits par prix',
+                    pieHole: 0.3
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                chart.draw(data, options);
+            }
+        </script>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Tri
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ path('trieproduit') }}">TriParNom</a>
+                <a class="dropdown-item" href="{{ path('trieproduitId') }}">TrieParId</a>
+            </div>
+
+        </div>
+        <div class="form-inline">
+            <form method="post" action="{{ path('searchProd') }}" class="search-form">
+
+                <input  class="form-control mr-sm-2" type="text" name="search" placeholder="Search ..." aria-label="Search"  >
+                <input type="submit" value="Recherche" class="btn btn-info">
+
+            </form>
+        </div>
+
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li><a href="#">Dashboard</a></li>
+
+                        <li><a href="#">Table</a></li>
+                        <li class="active">Data table</li>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content mt-3">
+        <div class="animated fadeIn">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Data Table</strong>
+                        </div>
+
+
+                        <div class="header-left">
+
+
+                        </div>
+                        <div class="card-body">
+
+                            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
+
+
+
+
+
+                                <thead>
+                                <tr>
+
+                                    <td> ID </td>
+                                    <td>Nom</td>
+                                    <td>Prix</td>
+                                    <td>Descritpion</td>
+                                    <td>image </td>
+                                    <td></td>
+                                    <td></td>
+
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {%for prod in listproduit %}
+
+                                    <tr>
+                                        <td>{{ prod.id }}</td>
+                                        <td>{{ prod.nom }}</td>
+                                        <td>{{ prod.prix }}</td>
+                                        <td>{{ prod.description}}</td>
+
+                                       <td><img src=" {{ asset('Uploads/Image/' ~ prod.image) }}" height="100" width="100" alt="{{ prod.nom }}"></td>
+                                       <td><a href="{{ path('deletePROD' ,{'id':prod.id})}}" >Supprimer</a></td>
+                                        <td><a href="{{ path('updatePROD' ,{'id':prod.id})}}" >Modifier</a></td>
+
+
+
+
+                                    </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div><!-- .animated -->
+    </div><!-- .content -->
+
+
+
+    <!-- Right Panel -->
+
+
+
+    </body>
+
+
+
+{% endblock %}
