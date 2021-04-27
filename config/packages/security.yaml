@@ -19,9 +19,17 @@ security:
             provider: app_user_provider
             guard:
                 authenticators:
-                    - App\Security\LoginAuthenticator
+                    - App\Security\GoogleAuthenticator
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                username_parameter: email
+                password_parameter: password
+                default_target_path: home
             logout:
                 path: app_logout
+                target: app_login
+
                 # where to redirect after logout
                 # target: app_any_route
 
